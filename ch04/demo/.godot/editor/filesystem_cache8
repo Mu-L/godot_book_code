@@ -1,0 +1,7 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1747457991
+icon.svg::CompressedTexture2D::9123223265944065679::1732147136::1732147141::1::::<><>::
+level.gd::GDScript::-1::1732285524::0::1::::<>Node2D<>::
+level.tscn::PackedScene::7616889784259489233::1747369980::0::1::::<><>::uid://bhh3beryjj2sl::::res://player.tscn<>res://level.gd
+player.gd::GDScript::-1::1732258441::0::1::::Player<>Node2D<>::
+player.tscn::PackedScene::2893895332487050483::1747369980::0::1::::<><>::res://player.gd<>uid://d28mfilphq0il::::res://icon.svg

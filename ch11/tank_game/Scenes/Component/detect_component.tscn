@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cn38yaihoeao"]
+
+[ext_resource type="Script" path="res://Scenes/Component/detect_component.gd" id="1_em5ep"]
+
+[node name="DetectComponent" type="Area2D"]
+script = ExtResource("1_em5ep")

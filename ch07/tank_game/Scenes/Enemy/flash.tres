@@ -1,0 +1,22 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cnh3kl1ejdod8"]
+
+[sub_resource type="Shader" id="Shader_81u7w"]
+code = "shader_type canvas_item;
+
+uniform bool active;
+uniform vec3 flash_color : source_color = vec3(1.0);
+
+
+void fragment(){
+	vec4 t = texture(TEXTURE, UV);
+	if (active == true) {
+		COLOR = vec4(flash_color, t.a);
+	}
+	
+}"
+
+[resource]
+resource_local_to_scene = true
+shader = SubResource("Shader_81u7w")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)

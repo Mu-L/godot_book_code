@@ -1,0 +1,112 @@
+[gd_scene load_steps=16 format=3 uid="uid://bty1oa6tr4a5x"]
+
+[ext_resource type="Script" path="res://bird/bird.gd" id="1_14e33"]
+[ext_resource type="Texture2D" uid="uid://bihbkg7ud8hcl" path="res://assets/bird1.png" id="1_gtpah"]
+[ext_resource type="Texture2D" uid="uid://caavwymrm56gm" path="res://assets/bird2.png" id="2_wvikr"]
+[ext_resource type="Texture2D" uid="uid://bi8e50d2hcuo0" path="res://assets/bird3.png" id="3_047bm"]
+[ext_resource type="AudioStream" uid="uid://c3use44oq55xn" path="res://assets/wing.wav" id="5_o1rfm"]
+[ext_resource type="AudioStream" uid="uid://dat7b3bwl7twv" path="res://assets/point.wav" id="6_d4hwg"]
+[ext_resource type="Script" path="res://bird/AIController.gd" id="8_5qnjk"]
+[ext_resource type="Script" path="res://bird/sensors.gd" id="8_q3wvw"]
+[ext_resource type="PackedScene" uid="uid://cjipp3bn8jhp5" path="res://bird/Sensor.tscn" id="9_ygaem"]
+[ext_resource type="Script" path="res://bird/sensor_coin.gd" id="10_rffmg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e7jc0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gtpah")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_wvikr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_047bm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_32rdy"]
+radius = 17.1172
+
+[sub_resource type="Curve" id="Curve_4bcap"]
+_data = [Vector2(0, 0.907363), 0.0, 0.0, 0, 0, Vector2(1, 0.447268), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_ipgyj"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.129412)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pbhh7"]
+size = Vector2(300, 1500)
+
+[node name="Bird" type="CharacterBody2D" groups=["bird"]]
+script = ExtResource("1_14e33")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_e7jc0")
+autoplay = "default"
+frame_progress = 0.0416153
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_32rdy")
+
+[node name="FlySound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_o1rfm")
+
+[node name="ScoreSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_d4hwg")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+show_behind_parent = true
+position = Vector2(-1, 0)
+amount = 6
+lifetime = 0.2
+texture = ExtResource("1_gtpah")
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 150.0
+scale_amount_curve = SubResource("Curve_4bcap")
+color_ramp = SubResource("Gradient_ipgyj")
+
+[node name="AIController" type="Node2D" parent="."]
+script = ExtResource("8_5qnjk")
+reset_after = 100000
+
+[node name="Sensors" type="Node2D" parent="."]
+script = ExtResource("8_q3wvw")
+
+[node name="Sensor_H1" parent="Sensors" instance=ExtResource("9_ygaem")]
+
+[node name="Sensor_H2" parent="Sensors" instance=ExtResource("9_ygaem")]
+position = Vector2(0, 21)
+
+[node name="Sensor_V1" parent="Sensors" instance=ExtResource("9_ygaem")]
+position = Vector2(0, 21)
+target_position = Vector2(0, 200)
+direction = 1
+
+[node name="Sensor_V2" parent="Sensors" instance=ExtResource("9_ygaem")]
+target_position = Vector2(0, -200)
+direction = 1
+
+[node name="Sensor_D1" parent="Sensors" instance=ExtResource("9_ygaem")]
+position = Vector2(0, 21)
+target_position = Vector2(200, 200)
+direction = 2
+
+[node name="Sensor_D2" parent="Sensors" instance=ExtResource("9_ygaem")]
+target_position = Vector2(200, -200)
+direction = 2
+
+[node name="SensorCoin" type="Area2D" parent="Sensors"]
+position = Vector2(150, 0)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("10_rffmg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sensors/SensorCoin"]
+shape = SubResource("RectangleShape2D_pbhh7")

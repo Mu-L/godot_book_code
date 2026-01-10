@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://cjjw30idy32cc"]
+
+[ext_resource type="Script" path="res://Scenes/enemy_bullet/enemy_bullet.gd" id="1_4s6p3"]
+[ext_resource type="Texture2D" uid="uid://j6omnr03f1dq" path="res://assets/enemy/bulletSand2.png" id="2_705wk"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gkkct"]
+radius = 4.0
+height = 14.0
+
+[sub_resource type="Animation" id="Animation_fm8ly"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_1qkr2"]
+resource_name = "bullet"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0.5, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g8swx"]
+_data = {
+"RESET": SubResource("Animation_fm8ly"),
+"bullet": SubResource("Animation_1qkr2")
+}
+
+[node name="EnemyBullet" type="Area2D"]
+script = ExtResource("1_4s6p3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 1.5708
+texture = ExtResource("2_705wk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_gkkct")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_g8swx")
+}
+autoplay = "bullet"

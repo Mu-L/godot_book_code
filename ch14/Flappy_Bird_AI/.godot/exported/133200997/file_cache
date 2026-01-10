@@ -1,0 +1,10 @@
+res://assets/white_32.tres::593a82cd8ab1f1b3454795388970f88c::1710138906::res://.godot/exported/133200997/export-4ae0cfe8f0ad547c057f993860258b00-white_32.res
+res://BG/bg.tscn::08ec13531c8a0eda8ec599895cb6f00a::1710244715::res://.godot/exported/133200997/export-a331b6c7982be12ebcc8ca390dc3fb34-bg.scn
+res://BG/ground.tscn::30b60ac8e3e72b7cdc49dd4bf45edb27::1710244715::res://.godot/exported/133200997/export-d723d27a958e374133b80797e167f6e1-ground.scn
+res://BG/sky.tscn::327519249263d42dfc3996a4ece8fbff::1710244715::res://.godot/exported/133200997/export-dd4aceec0d98ba0eeeee75a2edde246b-sky.scn
+res://bird/bird.tscn::76111507a3bb62d5e9223b5a5c3327c2::1710244714::res://.godot/exported/133200997/export-6c68f2320cad226d43788d8c938661d6-bird.scn
+res://hud/hud.tscn::0c54d477a8ea89c5569f227cb6adb4c1::1710244715::res://.godot/exported/133200997/export-52930d4a902a7043e922338d65f6e679-hud.scn
+res://main/main.tscn::50fb7749cee398fedbe59416b536428c::1710244715::res://.godot/exported/133200997/export-435f623093a3e2498450e744191b98a6-main.scn
+res://menu/menu.tscn::7c243f7b484d171966a9ec974fb9a484::1710244715::res://.godot/exported/133200997/export-4e96fb701b3cf98083d3f26d878d1a8e-menu.scn
+res://pipes/pipe.tscn::c124b9b17c21691c938e9041d3f7daa0::1710244714::res://.godot/exported/133200997/export-ccd0be82dc7927c03380b9154fd73f47-pipe.scn
+res://pipes/pipes.tscn::aa676c6cf57cbdae441a94cc701510af::1710244754::res://.godot/exported/133200997/export-8adfe197b174c7206fff020b1dfa3070-pipes.scn

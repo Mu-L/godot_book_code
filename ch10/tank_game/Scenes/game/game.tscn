@@ -1,0 +1,115 @@
+[gd_scene load_steps=13 format=3 uid="uid://dq74u7xokhaw1"]
+
+[ext_resource type="PackedScene" uid="uid://d4gptjq2d3evw" path="res://Scenes/game/map.tscn" id="1_jrlgj"]
+[ext_resource type="PackedScene" uid="uid://coagmfmoo0dyg" path="res://Scenes/Enemy/enemy_tank.tscn" id="3_1k0qp"]
+[ext_resource type="PackedScene" uid="uid://bwk5b6hf5n83w" path="res://Scenes/Enemy/enemy_mis_vehicle.tscn" id="3_2ms63"]
+[ext_resource type="PackedScene" uid="uid://12vek3niyq0o" path="res://Scenes/manager/vfx_manager.tscn" id="3_e0fv2"]
+[ext_resource type="PackedScene" uid="uid://dytfkbyld0eye" path="res://Scenes/UI/hud.tscn" id="4_dqxpi"]
+[ext_resource type="PackedScene" uid="uid://bn2pi1eq1mvyp" path="res://Scenes/Player/player.tscn" id="5_eoqpb"]
+
+[sub_resource type="Shader" id="Shader_81u7w"]
+code = "shader_type canvas_item;
+
+uniform bool active;
+uniform vec3 flash_color : source_color = vec3(1.0);
+
+
+void fragment(){
+	vec4 t = texture(TEXTURE, UV);
+	if (active == true) {
+		COLOR = vec4(flash_color, t.a);
+	}
+	
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oimip"]
+resource_local_to_scene = true
+shader = SubResource("Shader_81u7w")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Shader" id="Shader_jpf56"]
+code = "shader_type canvas_item;
+
+uniform bool active;
+uniform vec3 flash_color : source_color = vec3(1.0);
+
+
+void fragment(){
+	vec4 t = texture(TEXTURE, UV);
+	if (active == true) {
+		COLOR = vec4(flash_color, t.a);
+	}
+	
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1n55k"]
+resource_local_to_scene = true
+shader = SubResource("Shader_jpf56")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Shader" id="Shader_kc1t1"]
+code = "shader_type canvas_item;
+
+uniform bool active;
+uniform vec3 flash_color : source_color = vec3(1.0);
+
+
+void fragment(){
+	vec4 t = texture(TEXTURE, UV);
+	if (active == true) {
+		COLOR = vec4(flash_color, t.a);
+	}
+	
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lmlwl"]
+resource_local_to_scene = true
+shader = SubResource("Shader_kc1t1")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[node name="game" type="Node2D"]
+metadata/_edit_horizontal_guides_ = [-127.0, 1467.0]
+metadata/_edit_vertical_guides_ = [-130.0, 2884.0]
+
+[node name="Map" parent="." instance=ExtResource("1_jrlgj")]
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="EnemyTank" parent="Enemies" node_paths=PackedStringArray("points") instance=ExtResource("3_1k0qp")]
+material = SubResource("ShaderMaterial_oimip")
+position = Vector2(742, 162)
+points = NodePath("../../Points")
+
+[node name="EnemyMisVehicle" parent="Enemies" node_paths=PackedStringArray("points") instance=ExtResource("3_2ms63")]
+material = SubResource("ShaderMaterial_1n55k")
+position = Vector2(565, 602)
+points = NodePath("../../Points")
+
+[node name="VFXManager" parent="." instance=ExtResource("3_e0fv2")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("4_dqxpi")]
+
+[node name="Points" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="Points"]
+position = Vector2(419, 163)
+
+[node name="Marker2D2" type="Marker2D" parent="Points"]
+position = Vector2(1050, 164)
+
+[node name="Marker2D3" type="Marker2D" parent="Points"]
+position = Vector2(1050, 609)
+
+[node name="Marker2D4" type="Marker2D" parent="Points"]
+position = Vector2(420, 609)
+
+[node name="Player" parent="." instance=ExtResource("5_eoqpb")]
+z_index = 1
+material = SubResource("ShaderMaterial_lmlwl")
+position = Vector2(1274, 589)
+max_speed = 260.0

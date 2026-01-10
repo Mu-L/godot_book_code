@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmso46eys4hlw"]
+
+[ext_resource type="Script" path="res://Scenes/Object/bullet_trail.gd" id="1_4bjux"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_io08v"]
+light_mode = 1
+
+[sub_resource type="Curve" id="Curve_j0bly"]
+_data = [Vector2(0, 0.0276139), 0.0, 0.0, 0, 0, Vector2(0.759124, 0.695503), 0.0, 0.0, 0, 0, Vector2(1, 0.602124), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_q81hf"]
+offsets = PackedFloat32Array(0, 0.659091)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[node name="BulletTrail" type="Line2D"]
+modulate = Color(1.5, 1.5, 1.5, 1)
+material = SubResource("CanvasItemMaterial_io08v")
+points = PackedVector2Array(-40, 0, -20, 0, 0, 0)
+width_curve = SubResource("Curve_j0bly")
+gradient = SubResource("Gradient_q81hf")
+antialiased = true
+script = ExtResource("1_4bjux")

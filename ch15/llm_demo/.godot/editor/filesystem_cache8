@@ -1,0 +1,10 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1750217338
+icon.svg::CompressedTexture2D::3688782989817696376::1750135045::1750135050::1::::<><>::
+::res://addons/::1750135084
+::res://addons/llm_chat/::1750172861
+llm_api.gd::GDScript::-1::1750172861::0::1::::LLMAPI<>HTTPRequest<>::
+llm_chat.gd::GDScript::-1::1750172340::0::1::::<>EditorPlugin<>::
+plugin.cfg::TextFile::-1::1750135113::0::1::::<><>::
+::res://config/::1750136669
+api_config.cfg::TextFile::-1::1750136669::0::1::::<><>::

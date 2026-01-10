@@ -1,0 +1,128 @@
+[gd_scene load_steps=18 format=3 uid="uid://blryws2tqgt4w"]
+
+[ext_resource type="PackedScene" uid="uid://cytl7mpwsr8jj" path="res://pipes/pipe.tscn" id="1_jvn54"]
+[ext_resource type="Script" path="res://pipes/pipes.gd" id="1_tt7kj"]
+[ext_resource type="Texture2D" uid="uid://bqi4yqo7apx60" path="res://assets/coin-frame-1.png" id="3_7hi34"]
+[ext_resource type="Texture2D" uid="uid://74d3fbhi3cq6" path="res://assets/coin-frame-2.png" id="4_loigi"]
+[ext_resource type="Texture2D" uid="uid://bdrfkuwohlhnr" path="res://assets/coin-frame-3.png" id="5_okfsp"]
+[ext_resource type="Texture2D" uid="uid://bclxsfe34a3l5" path="res://assets/coin-frame-4.png" id="6_6ysi5"]
+[ext_resource type="Texture2D" uid="uid://tal3u5wn7brw" path="res://assets/coin-frame-5.png" id="7_4gjws"]
+[ext_resource type="Texture2D" uid="uid://br1xowqhhajfc" path="res://assets/coin-frame-6.png" id="8_juonu"]
+[ext_resource type="Texture2D" uid="uid://c60dmxo583vf4" path="res://assets/coin-frame-7.png" id="9_5kggt"]
+[ext_resource type="Texture2D" uid="uid://cxsyfwq8auwfl" path="res://assets/coin-frame-8.png" id="10_h64ml"]
+[ext_resource type="Texture2D" uid="uid://byl6nyaotilxj" path="res://assets/coin-frame-9.png" id="11_btp1p"]
+[ext_resource type="Texture2D" uid="uid://dck2kyh6f6kha" path="res://assets/coin-frame-10.png" id="12_8u06f"]
+[ext_resource type="Texture2D" uid="uid://cftkkqh8uxju2" path="res://assets/coin-frame-11.png" id="13_vxhoa"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1yej8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_7hi34")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_loigi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_okfsp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_6ysi5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_4gjws")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_juonu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_5kggt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_h64ml")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_btp1p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_8u06f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_vxhoa")
+}],
+"loop": true,
+"name": &"coin",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_stvl3"]
+radius = 17.0294
+
+[sub_resource type="Animation" id="Animation_p4flt"]
+resource_name = "coin"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.3, 0.3), Vector2(0.8, 0.8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_to01f"]
+_data = {
+"coin": SubResource("Animation_p4flt")
+}
+
+[node name="Pipes" type="Node2D"]
+script = ExtResource("1_tt7kj")
+
+[node name="Pipe" parent="." instance=ExtResource("1_jvn54")]
+position = Vector2(0, 90)
+
+[node name="Pipe2" parent="." instance=ExtResource("1_jvn54")]
+position = Vector2(0, -90)
+rotation = 3.14159
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(71, 0)
+
+[node name="Coin" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Coin"]
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_1yej8")
+animation = &"coin"
+autoplay = "coin"
+frame_progress = 0.585186
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Coin"]
+shape = SubResource("CircleShape2D_stvl3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Coin"]
+libraries = {
+"": SubResource("AnimationLibrary_to01f")
+}
+
+[connection signal="body_entered" from="Pipe" to="." method="_on_pipe_body_entered"]
+[connection signal="body_entered" from="Pipe2" to="." method="_on_pipe_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_exited"]
+[connection signal="body_entered" from="Coin" to="." method="_on_coin_body_entered"]

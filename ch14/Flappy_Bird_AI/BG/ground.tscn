@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxtbk16xojrsc"]
+
+[ext_resource type="PackedScene" uid="uid://cv4ip3p37du3f" path="res://BG/bg.tscn" id="1_4mhmi"]
+[ext_resource type="Texture2D" uid="uid://b3wob7btvm53l" path="res://assets/ground.png" id="2_bcuor"]
+
+[node name="Ground" instance=ExtResource("1_4mhmi")]
+layer = 0
+
+[node name="ParallaxLayer" parent="." index="0"]
+motion_mirroring = Vector2(900, 0)
+
+[node name="Sprite2D" parent="ParallaxLayer" index="0"]
+texture = ExtResource("2_bcuor")
+centered = false
+offset = Vector2(0, 700)

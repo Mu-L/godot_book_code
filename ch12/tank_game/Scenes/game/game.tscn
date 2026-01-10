@@ -1,0 +1,76 @@
+[gd_scene load_steps=12 format=3 uid="uid://dq74u7xokhaw1"]
+
+[ext_resource type="PackedScene" uid="uid://cjxhxbtxge7nj" path="res://Scenes/Maps/map_pcg.tscn" id="1_rfaor"]
+[ext_resource type="PackedScene" uid="uid://cjx6mb7o8ct0u" path="res://Scenes/manager/vfx_manager.tscn" id="2_i8aot"]
+[ext_resource type="PackedScene" uid="uid://dytfkbyld0eye" path="res://Scenes/UI/hud.tscn" id="3_it2as"]
+[ext_resource type="PackedScene" uid="uid://bn2pi1eq1mvyp" path="res://Scenes/Player/player.tscn" id="4_jiu21"]
+[ext_resource type="PackedScene" uid="uid://p3b0t7qx3ydr" path="res://Scenes/manager/enemy_manager.tscn" id="5_0g2at"]
+[ext_resource type="PackedScene" uid="uid://coagmfmoo0dyg" path="res://Scenes/Enemy/enemy_tank.tscn" id="6_x0hct"]
+[ext_resource type="PackedScene" uid="uid://bwk5b6hf5n83w" path="res://Scenes/Enemy/enemy_mis_vehicle.tscn" id="7_e2jqg"]
+[ext_resource type="PackedScene" uid="uid://c0ymxelsqw38h" path="res://Scenes/Enemy/enemy_tower.tscn" id="8_aj407"]
+[ext_resource type="PackedScene" uid="uid://divch0op1c52" path="res://Scenes/manager/pickup_manager.tscn" id="9_n4ld5"]
+
+[sub_resource type="Shader" id="Shader_kc1t1"]
+code = "shader_type canvas_item;
+
+uniform bool active;
+uniform vec3 flash_color : source_color = vec3(1.0);
+
+
+void fragment(){
+	vec4 t = texture(TEXTURE, UV);
+	if (active == true) {
+		COLOR = vec4(flash_color, t.a);
+	}
+	
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lmlwl"]
+resource_local_to_scene = true
+shader = SubResource("Shader_kc1t1")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[node name="Game" type="Node2D"]
+metadata/_edit_horizontal_guides_ = [-3.0, 1470.0]
+metadata/_edit_vertical_guides_ = [-2.0, 2947.0]
+
+[node name="Points" type="Node2D" parent="."]
+
+[node name="EnemyStart" type="Marker2D" parent="Points"]
+position = Vector2(90, 536)
+
+[node name="PlayerStart" type="Marker2D" parent="Points"]
+position = Vector2(2834, 546)
+
+[node name="TopLeft" type="Marker2D" parent="Points"]
+position = Vector2(300, 159)
+
+[node name="BottomRight" type="Marker2D" parent="Points"]
+position = Vector2(2539, 1251)
+
+[node name="MapPCG" parent="." node_paths=PackedStringArray("points") instance=ExtResource("1_rfaor")]
+points = NodePath("../Points")
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="EnemyManager" parent="." node_paths=PackedStringArray("map", "enemies_holder") instance=ExtResource("5_0g2at")]
+enemy_tank_scene = ExtResource("6_x0hct")
+enemy_mis_scene = ExtResource("7_e2jqg")
+enemy_tower_scene = ExtResource("8_aj407")
+map = NodePath("../MapPCG")
+enemies_holder = NodePath("../Enemies")
+
+[node name="PickupManager" parent="." instance=ExtResource("9_n4ld5")]
+
+[node name="VFXManager" parent="." instance=ExtResource("2_i8aot")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("3_it2as")]
+
+[node name="Player" parent="." node_paths=PackedStringArray("points") instance=ExtResource("4_jiu21")]
+material = SubResource("ShaderMaterial_lmlwl")
+position = Vector2(547, 676)
+points = NodePath("../Points")
+max_speed = 260.0

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvctw0e2yuqvs"]
+
+[ext_resource type="PackedScene" uid="uid://c1vjo05auqmej" path="res://Scenes/Object/bullet_base.tscn" id="1_q6pcg"]
+
+[node name="EnemyBullet" instance=ExtResource("1_q6pcg")]
+speed = 400.0
+
+[node name="HitBoxComponent" parent="." index="2"]
+collision_layer = 4
+collision_mask = 18

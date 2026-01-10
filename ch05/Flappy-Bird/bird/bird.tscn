@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://bty1oa6tr4a5x"]
+
+[ext_resource type="Script" path="res://bird/bird.gd" id="1_14e33"]
+[ext_resource type="Texture2D" uid="uid://bihbkg7ud8hcl" path="res://assets/bird1.png" id="1_gtpah"]
+[ext_resource type="Texture2D" uid="uid://caavwymrm56gm" path="res://assets/bird2.png" id="2_wvikr"]
+[ext_resource type="Texture2D" uid="uid://bi8e50d2hcuo0" path="res://assets/bird3.png" id="3_047bm"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e7jc0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gtpah")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_wvikr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_047bm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4pehf"]
+radius = 17.0
+
+[sub_resource type="Curve" id="Curve_4bcap"]
+_data = [Vector2(0, 0.907363), 0.0, 0.0, 0, 0, Vector2(1, 0.447268), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_1ixmr"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="Bird" type="CharacterBody2D" groups=["bird"]]
+script = ExtResource("1_14e33")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_e7jc0")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4pehf")
+
+[node name="FlySound" type="AudioStreamPlayer" parent="."]
+
+[node name="ScoreSound" type="AudioStreamPlayer" parent="."]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+show_behind_parent = true
+emitting = false
+amount = 6
+lifetime = 0.2
+texture = ExtResource("1_gtpah")
+direction = Vector2(-1, 0)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 150.0
+initial_velocity_max = 150.0
+scale_amount_curve = SubResource("Curve_4bcap")
+color_ramp = SubResource("Gradient_1ixmr")

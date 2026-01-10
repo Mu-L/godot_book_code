@@ -1,0 +1,137 @@
+[gd_scene load_steps=18 format=3 uid="uid://c0ymxelsqw38h"]
+
+[ext_resource type="Texture2D" uid="uid://dmyg7y0615bm4" path="res://assets/enemy/towerDefense_tile181.png" id="1_m3xlj"]
+[ext_resource type="Script" path="res://Scenes/Enemy/enemy_tower.gd" id="1_tkato"]
+[ext_resource type="PackedScene" uid="uid://cghqkgbi50djj" path="res://Scenes/Component/weapon_component.tscn" id="2_x5cp0"]
+[ext_resource type="PackedScene" uid="uid://bvctw0e2yuqvs" path="res://Scenes/Object/enemy_bullet.tscn" id="3_cvk2f"]
+[ext_resource type="Texture2D" uid="uid://cd4fjsqlra5ms" path="res://assets/enemy/towerDefense_tile249.png" id="3_q3ejm"]
+[ext_resource type="PackedScene" uid="uid://d2wvhn6pfhm6w" path="res://Scenes/Component/hurt_box_component.tscn" id="7_v7twv"]
+[ext_resource type="PackedScene" uid="uid://cn38yaihoeao" path="res://Scenes/Component/detect_component.tscn" id="8_w242b"]
+[ext_resource type="PackedScene" uid="uid://8pwhobx1swnv" path="res://Scenes/Component/health_component.tscn" id="9_wtram"]
+[ext_resource type="Texture2D" uid="uid://due6bxmuvxryc" path="res://assets/VFX/spotlight_1.png" id="10_4utsj"]
+
+[sub_resource type="Shader" id="Shader_81u7w"]
+code = "shader_type canvas_item;
+
+uniform bool active;
+uniform vec3 flash_color : source_color = vec3(1.0);
+
+
+void fragment(){
+	vec4 t = texture(TEXTURE, UV);
+	if (active == true) {
+		COLOR = vec4(flash_color, t.a);
+	}
+	
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_agl14"]
+resource_local_to_scene = true
+shader = SubResource("Shader_81u7w")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5dkhm"]
+radius = 25.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ybdvd"]
+radius = 26.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w5vn1"]
+radius = 350.0
+
+[sub_resource type="Animation" id="Animation_k4ekd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_luhix"]
+resource_name = "flash"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3edvn"]
+_data = {
+"RESET": SubResource("Animation_k4ekd"),
+"flash": SubResource("Animation_luhix")
+}
+
+[node name="EnemyTower" type="StaticBody2D" groups=["Enemy", "EnemyTower"]]
+material = SubResource("ShaderMaterial_agl14")
+collision_layer = 64
+collision_mask = 32
+script = ExtResource("1_tkato")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_5dkhm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+use_parent_material = true
+texture = ExtResource("1_m3xlj")
+
+[node name="WeaponComponent" parent="." instance=ExtResource("2_x5cp0")]
+use_parent_material = true
+cool_down = 0.6
+bullet_scene = ExtResource("3_cvk2f")
+
+[node name="Gun" parent="WeaponComponent" index="0"]
+use_parent_material = true
+texture = ExtResource("3_q3ejm")
+
+[node name="Marker2D" parent="WeaponComponent/Gun" index="0"]
+position = Vector2(41, 0)
+
+[node name="Sprite2D" parent="WeaponComponent/Gun" index="1"]
+position = Vector2(51, 0)
+
+[node name="HurtBoxComponent" parent="." instance=ExtResource("7_v7twv")]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent"]
+shape = SubResource("CircleShape2D_ybdvd")
+
+[node name="DetectComponent" parent="." instance=ExtResource("8_w242b")]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectComponent"]
+shape = SubResource("CircleShape2D_w5vn1")
+
+[node name="HealthComponent" parent="." instance=ExtResource("9_wtram")]
+max_health = 10.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3edvn")
+}
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.984314, 1, 0, 1)
+shadow_enabled = true
+shadow_filter = 1
+shadow_filter_smooth = 1.0
+texture = ExtResource("10_4utsj")
+texture_scale = 2.0
+
+[editable path="WeaponComponent"]

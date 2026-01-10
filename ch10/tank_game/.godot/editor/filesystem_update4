@@ -1,0 +1,9 @@
+res://Scenes/game/game.tscn
+res://assets/tileset/map.tres
+res://Scenes/Enemy/flash.tres
+res://Scenes/manager/enemy_manager.tscn
+res://Scenes/Object/pick_up.tscn
+res://Scenes/Enemy/enemy_mis_vehicle.tscn
+res://Scenes/Enemy/enemy_tank.tscn
+res://Scenes/Component/search_component.tscn
+res://Scenes/Component/avoid_component.tscn

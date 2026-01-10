@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://ceht8hsqbaixl"]
+
+[ext_resource type="Script" path="res://Scenes/Object/bullet_trail.gd" id="1_ip7ss"]
+
+[sub_resource type="Curve" id="Curve_j0bly"]
+_data = [Vector2(0, 0.0276139), 0.0, 0.0, 0, 0, Vector2(0.839623, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.417962), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_q81hf"]
+offsets = PackedFloat32Array(0, 0.648305)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 0.392157)
+
+[node name="BulletTrail" type="Line2D"]
+points = PackedVector2Array(-40, 0, -20, 0, 0, 0)
+width_curve = SubResource("Curve_j0bly")
+gradient = SubResource("Gradient_q81hf")
+script = ExtResource("1_ip7ss")
+length = 10

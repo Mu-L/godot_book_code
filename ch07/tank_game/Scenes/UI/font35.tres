@@ -1,0 +1,12 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://hy5nvmoil6ww"]
+
+[ext_resource type="FontFile" uid="uid://dlqiino7nti1b" path="res://assets/font/Rockboxcond12.ttf" id="1_hln3a"]
+
+[resource]
+font = ExtResource("1_hln3a")
+font_size = 35
+outline_size = 7
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 7
+shadow_color = Color(0, 0, 0, 0.6)
+shadow_offset = Vector2(2, 2)

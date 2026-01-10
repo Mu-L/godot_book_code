@@ -1,0 +1,15 @@
+TextureRect
+Camera2D
+Node2D
+Marker2D
+CollisionShape2D
+HTTPRequest
+TileMapLayer
+TileMap
+BTPlayer
+NavigationAgent2D
+AudioStreamPlayer2D
+Sprite2D
+CharacterBody2D
+ShapeCast2D
+Timer

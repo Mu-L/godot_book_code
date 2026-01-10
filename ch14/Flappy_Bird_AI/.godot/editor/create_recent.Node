@@ -1,0 +1,14 @@
+Timer
+CollisionShape2D
+Area2D
+RaycastSensor2D
+Node2D
+RayCast2D
+AIController2D
+GridSensor2D
+Sync
+AnimationPlayer
+AnimatedSprite2D
+CPUParticles2D
+AudioStreamPlayer
+Sprite2D

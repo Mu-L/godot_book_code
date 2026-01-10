@@ -1,0 +1,14 @@
+AnimatedSprite2D
+Node
+Node2D
+Marker2D
+CollisionShape2D
+CharacterBody2D
+AudioStreamPlayer
+Timer
+AudioStreamPlayer2D
+VBoxContainer
+Button
+CanvasLayer
+GPUParticles2D
+CPUParticles2D

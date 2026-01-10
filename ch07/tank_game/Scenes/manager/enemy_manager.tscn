@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://p3b0t7qx3ydr"]
+
+[ext_resource type="Script" path="res://Scenes/manager/enemy_manager.gd" id="1_ow7gc"]
+[ext_resource type="PackedScene" uid="uid://d18cplciyaldm" path="res://Scenes/Enemy/enemy_tank.tscn" id="2_bsp4o"]
+
+[node name="EnemyManager" type="Node"]
+script = ExtResource("1_ow7gc")
+enemy_tank_scene = ExtResource("2_bsp4o")

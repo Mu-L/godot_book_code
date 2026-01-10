@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://gm64gi36mwj3"]
+
+[ext_resource type="PackedScene" uid="uid://c1lmhs6e5jvkk" path="res://Scenes/game/map.tscn" id="1_gwo24"]
+[ext_resource type="PackedScene" uid="uid://bsr5svi4nu2n6" path="res://Scenes/player/player.tscn" id="2_wkjtm"]
+[ext_resource type="PackedScene" uid="uid://c1go4ihqvepc6" path="res://Scenes/UI/hud.tscn" id="3_m7xii"]
+[ext_resource type="PackedScene" uid="uid://dbw1rhy4je0ub" path="res://Scenes/enemy/enemy.tscn" id="4_rrke0"]
+[ext_resource type="PackedScene" uid="uid://ca02thms684y7" path="res://Scenes/manager/vfx_manager.tscn" id="5_xrpu1"]
+
+[node name="Game" type="Node2D"]
+
+[node name="map" parent="." instance=ExtResource("1_gwo24")]
+
+[node name="Player03" parent="." instance=ExtResource("2_wkjtm")]
+position = Vector2(690, 364)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("3_m7xii")]
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Enemy" parent="Enemies" instance=ExtResource("4_rrke0")]
+position = Vector2(40, 354)
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource("4_rrke0")]
+position = Vector2(45, 638)
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource("4_rrke0")]
+position = Vector2(41, 115)
+
+[node name="VFXManager" parent="." instance=ExtResource("5_xrpu1")]

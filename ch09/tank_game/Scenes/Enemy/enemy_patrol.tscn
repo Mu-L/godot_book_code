@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://00cn34fpldft"]
+
+[ext_resource type="Script" path="res://Scenes/Enemy/enemy_patrol.gd" id="1_fidfh"]
+
+[node name="EnemyPatrol" type="Node"]
+script = ExtResource("1_fidfh")

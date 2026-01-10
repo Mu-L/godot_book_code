@@ -1,0 +1,13 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1750217383
+export_presets.cfg::TextFile::-1::1750209509::0::1::::<><>::
+llmapi.tscn::PackedScene::860218514432287170::1750217383::0::1::::<><>::res://llm_api.gd
+llm_api.gd::GDScript::-1::1750203770::0::1::::LLMAPI<>HTTPRequest<>::
+pet.gd::GDScript::-1::1750208619::0::1::::<>Node2D<>::
+pet.tscn::PackedScene::3979244619307245724::1750217388::0::1::::<><>::res://pet.gd<>uid://d0qf8cklsv0e7::::res://player.png<>uid://cb4dxiw04bwho::::res://tile05.png<>uid://mixw5jsqxovi::::res://llmapi.tscn
+player-single.png::CompressedTexture2D::7463713479783620568::1734476859::1734476859::1::::<><>::
+player.gd::GDScript::-1::1734353419::0::1::::<>Node2D<>::
+player.png::CompressedTexture2D::8947375823277205684::1734401407::1734401407::1::::<><>::
+tile05.png::CompressedTexture2D::4903120845477282636::1734439674::1734439681::1::::<><>::
+::res://config/::1750203619
+api_config.cfg::TextFile::-1::1750136669::0::1::::<><>::

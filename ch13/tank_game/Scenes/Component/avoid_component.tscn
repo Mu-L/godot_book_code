@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://1qgd1fqrncbl"]
+
+[ext_resource type="Script" path="res://Scenes/Component/avoid_component.gd" id="1_s2kxk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kg822"]
+radius = 20.0
+
+[node name="AvoidComponent" type="Node2D"]
+script = ExtResource("1_s2kxk")
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="."]
+rotation = -1.5708
+shape = SubResource("CircleShape2D_kg822")
+collision_mask = 16

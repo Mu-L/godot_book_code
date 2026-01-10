@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcx2gtiv30m8d"]
+
+[ext_resource type="Script" path="res://Scenes/Component/trail_compoment.gd" id="1_rdwgn"]
+[ext_resource type="PackedScene" uid="uid://dgnqqvxop4imt" path="res://Scenes/Object/tank_trail.tscn" id="2_qi1vj"]
+
+[node name="TrailCompoment" type="Node2D"]
+script = ExtResource("1_rdwgn")
+trail_scene = ExtResource("2_qi1vj")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2

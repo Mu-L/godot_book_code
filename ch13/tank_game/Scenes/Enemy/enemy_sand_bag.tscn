@@ -1,0 +1,78 @@
+[gd_scene load_steps=11 format=3 uid="uid://1epgcpd5uoly"]
+
+[ext_resource type="Texture2D" uid="uid://c3w10ni1r8ct6" path="res://assets/item/sandbagBeige.png" id="1_7ts36"]
+[ext_resource type="Script" path="res://Scenes/Enemy/enemy_sand_bag.gd" id="1_ij3do"]
+[ext_resource type="Material" uid="uid://cjue77d8wy50f" path="res://Scenes/Enemy/flash.tres" id="1_kdf1a"]
+[ext_resource type="PackedScene" uid="uid://d2wvhn6pfhm6w" path="res://Scenes/Component/hurt_box_component.tscn" id="2_jkvm3"]
+[ext_resource type="PackedScene" uid="uid://8pwhobx1swnv" path="res://Scenes/Component/health_component.tscn" id="4_pq2t5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oexdv"]
+size = Vector2(32, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g7v85"]
+size = Vector2(38, 29)
+
+[sub_resource type="Animation" id="Animation_k4ekd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_luhix"]
+resource_name = "flash"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3edvn"]
+_data = {
+"RESET": SubResource("Animation_k4ekd"),
+"flash": SubResource("Animation_luhix")
+}
+
+[node name="EnemySandBag" type="StaticBody2D" groups=["EnemySandBag"]]
+material = ExtResource("1_kdf1a")
+collision_layer = 64
+collision_mask = 32
+script = ExtResource("1_ij3do")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+use_parent_material = true
+texture = ExtResource("1_7ts36")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_oexdv")
+
+[node name="HurtBoxComponent" parent="." instance=ExtResource("2_jkvm3")]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_g7v85")
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_pq2t5")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3edvn")
+}

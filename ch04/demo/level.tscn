@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgrxcdtegljjd"]
+
+[ext_resource type="PackedScene" uid="uid://bhh3beryjj2sl" path="res://player.tscn" id="1_elt0n"]
+[ext_resource type="Script" path="res://level.gd" id="1_fx2d2"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_fx2d2")
+
+[node name="Player" parent="." instance=ExtResource("1_elt0n")]
+position = Vector2(233, 242)
+player_speed = 30.0
+
+[node name="Player2" parent="." instance=ExtResource("1_elt0n")]
+position = Vector2(731, 242)
+
+[node name="Button" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 55.0
+offset_top = 44.0
+offset_right = 132.0
+offset_bottom = 94.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "start"

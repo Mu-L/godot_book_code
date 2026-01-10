@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cq77i05gno5io"]
+
+[ext_resource type="Script" path="res://Scenes/manager/sound_manager.gd" id="1_i8hyq"]
+[ext_resource type="AudioStream" uid="uid://bcmy8yvkp3pf8" path="res://assets/music/BG.wav" id="2_js2v0"]
+
+[node name="SoundManager" type="Node"]
+process_mode = 3
+script = ExtResource("1_i8hyq")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_js2v0")
+autoplay = true
+
+[node name="Sound" type="AudioStreamPlayer" parent="."]

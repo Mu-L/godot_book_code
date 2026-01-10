@@ -1,0 +1,15 @@
+Camera2D
+CanvasLayer
+AnimationPlayer
+CollisionShape2D
+Area2D
+VBoxContainer
+ColorRect
+PanelContainer
+LineEdit
+RichTextLabel
+Control
+Node2D
+Node
+Polygon2D
+CollisionPolygon2D

@@ -1,0 +1,151 @@
+[gd_scene load_steps=22 format=3 uid="uid://coagmfmoo0dyg"]
+
+[ext_resource type="Script" path="res://Scenes/Enemy/enemy_tank.gd" id="1_spfnn"]
+[ext_resource type="Texture2D" uid="uid://h0wj3x8pp5om" path="res://assets/tank/tankBody_blue_outline.png" id="2_dk6u3"]
+[ext_resource type="PackedScene" uid="uid://cghqkgbi50djj" path="res://Scenes/Component/weapon_component.tscn" id="3_ii1j7"]
+[ext_resource type="PackedScene" uid="uid://bvctw0e2yuqvs" path="res://Scenes/Object/enemy_bullet.tscn" id="4_jdxvh"]
+[ext_resource type="Texture2D" uid="uid://cmegk2lm6ruts" path="res://assets/tank/tankBlue_barrel3_outline.png" id="5_4fvim"]
+[ext_resource type="PackedScene" uid="uid://d2wvhn6pfhm6w" path="res://Scenes/Component/hurt_box_component.tscn" id="7_0k5y7"]
+[ext_resource type="PackedScene" uid="uid://8pwhobx1swnv" path="res://Scenes/Component/health_component.tscn" id="8_x0q0h"]
+[ext_resource type="PackedScene" uid="uid://bcx2gtiv30m8d" path="res://Scenes/Component/trail_compoment.tscn" id="10_5wbtl"]
+[ext_resource type="PackedScene" uid="uid://cbmntb8xhks8d" path="res://Scenes/Enemy/FSM/state_machine.tscn" id="10_jejvj"]
+[ext_resource type="PackedScene" uid="uid://cklpq7bxfb72a" path="res://Scenes/Component/search_component.tscn" id="10_slxwl"]
+[ext_resource type="PackedScene" uid="uid://00cn34fpldft" path="res://Scenes/Enemy/FSM/enemy_patrol.tscn" id="11_7h0xm"]
+[ext_resource type="PackedScene" uid="uid://c8rl6pp8spydc" path="res://Scenes/Enemy/FSM/enemy_attack.tscn" id="12_fvm8q"]
+[ext_resource type="PackedScene" uid="uid://d1us2n6mdxj5e" path="res://Scenes/Enemy/FSM/enemy_wander.tscn" id="13_4us6d"]
+
+[sub_resource type="Shader" id="Shader_81u7w"]
+code = "shader_type canvas_item;
+
+uniform bool active;
+uniform vec3 flash_color : source_color = vec3(1.0);
+
+
+void fragment(){
+	vec4 t = texture(TEXTURE, UV);
+	if (active == true) {
+		COLOR = vec4(flash_color, t.a);
+	}
+	
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1go47"]
+resource_local_to_scene = true
+shader = SubResource("Shader_81u7w")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0svdm"]
+radius = 19.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2u2a3"]
+radius = 22.0
+
+[sub_resource type="Animation" id="Animation_k4ekd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_luhix"]
+resource_name = "flash"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3edvn"]
+_data = {
+"RESET": SubResource("Animation_k4ekd"),
+"flash": SubResource("Animation_luhix")
+}
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_7jie0"]
+polygon = PackedVector2Array(-20, -20, 18, -20, 18, 19, -19, 20)
+
+[node name="EnemyTank" type="CharacterBody2D" groups=["Enemy", "EnemyTank"]]
+z_index = 1
+material = SubResource("ShaderMaterial_1go47")
+collision_layer = 64
+collision_mask = 112
+script = ExtResource("1_spfnn")
+speed = 150.0
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+navigation_layers = 2
+avoidance_enabled = true
+radius = 50.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0svdm")
+
+[node name="Base" type="Sprite2D" parent="."]
+use_parent_material = true
+texture = ExtResource("2_dk6u3")
+
+[node name="WeaponComponent" parent="." instance=ExtResource("3_ii1j7")]
+use_parent_material = true
+cool_down = 0.6
+bullet_scene = ExtResource("4_jdxvh")
+
+[node name="Gun" parent="WeaponComponent" index="0"]
+use_parent_material = true
+texture = ExtResource("5_4fvim")
+
+[node name="HurtBoxComponent" parent="." instance=ExtResource("7_0k5y7")]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent"]
+shape = SubResource("CircleShape2D_2u2a3")
+
+[node name="HealthComponent" parent="." instance=ExtResource("8_x0q0h")]
+max_health = 4.0
+
+[node name="TrailCompoment" parent="." instance=ExtResource("10_5wbtl")]
+
+[node name="SearchComponent" parent="." instance=ExtResource("10_slxwl")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3edvn")
+}
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_7jie0")
+
+[node name="StateMachine" parent="." node_paths=PackedStringArray("initial_state") instance=ExtResource("10_jejvj")]
+initial_state = NodePath("EnemyPatrol")
+
+[node name="EnemyPatrol" parent="StateMachine" node_paths=PackedStringArray("enemy", "nav_agent", "search_component") instance=ExtResource("11_7h0xm")]
+enemy = NodePath("../..")
+nav_agent = NodePath("../../NavigationAgent2D")
+search_component = NodePath("../../SearchComponent")
+
+[node name="EnemyAttack" parent="StateMachine" node_paths=PackedStringArray("enemy", "search_component", "weapon_component") instance=ExtResource("12_fvm8q")]
+enemy = NodePath("../..")
+search_component = NodePath("../../SearchComponent")
+weapon_component = NodePath("../../WeaponComponent")
+
+[node name="EnemyWander" parent="StateMachine" node_paths=PackedStringArray("enemy", "search_component") instance=ExtResource("13_4us6d")]
+enemy = NodePath("../..")
+search_component = NodePath("../../SearchComponent")
+
+[editable path="WeaponComponent"]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cv4ip3p37du3f"]
+
+[ext_resource type="Script" path="res://BG/bg.gd" id="1_uqp51"]
+
+[node name="BG" type="ParallaxBackground"]
+script = ExtResource("1_uqp51")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer"]

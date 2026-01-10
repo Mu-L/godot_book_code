@@ -1,0 +1,116 @@
+[gd_scene load_steps=17 format=3 uid="uid://d18cplciyaldm"]
+
+[ext_resource type="Texture2D" uid="uid://h0wj3x8pp5om" path="res://assets/tank/tankBody_blue_outline.png" id="1_hdipi"]
+[ext_resource type="Script" path="res://Scenes/Enemy/enemy_tank.gd" id="1_rqox2"]
+[ext_resource type="PackedScene" uid="uid://x76g4vchvgp4" path="res://Scenes/Component/weapon_component.tscn" id="2_4qxm1"]
+[ext_resource type="PackedScene" uid="uid://5f8iw8eeo6gx" path="res://Scenes/Object/enemy_bullet.tscn" id="3_qiqc4"]
+[ext_resource type="Texture2D" uid="uid://cmegk2lm6ruts" path="res://assets/tank/tankBlue_barrel3_outline.png" id="4_6j2gk"]
+[ext_resource type="PackedScene" uid="uid://sg8e7uu6j1y0" path="res://Scenes/Component/hurt_box_component.tscn" id="6_jreye"]
+[ext_resource type="PackedScene" uid="uid://bt0lly4sgf5qc" path="res://Scenes/Component/health_component.tscn" id="7_wpsuj"]
+[ext_resource type="PackedScene" uid="uid://sykm6snm6wop" path="res://Scenes/Component/detect_component.tscn" id="8_6qhvq"]
+[ext_resource type="PackedScene" uid="uid://whgayyljf8ar" path="res://Scenes/Component/trail_compoment.tscn" id="11_c7jup"]
+
+[sub_resource type="Shader" id="Shader_81u7w"]
+code = "shader_type canvas_item;
+
+uniform bool active;
+uniform vec3 flash_color : source_color = vec3(1.0);
+
+
+void fragment(){
+	vec4 t = texture(TEXTURE, UV);
+	if (active == true) {
+		COLOR = vec4(flash_color, t.a);
+	}
+	
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1go47"]
+resource_local_to_scene = true
+shader = SubResource("Shader_81u7w")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6n2ls"]
+size = Vector2(36, 38)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pny7j"]
+radius = 350.0
+
+[sub_resource type="Animation" id="Animation_k4ekd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_luhix"]
+resource_name = "flash"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3edvn"]
+_data = {
+"RESET": SubResource("Animation_k4ekd"),
+"flash": SubResource("Animation_luhix")
+}
+
+[node name="EnemyTank" type="PathFollow2D" groups=["Enemy", "EnemyTank"]]
+z_index = 1
+material = SubResource("ShaderMaterial_1go47")
+script = ExtResource("1_rqox2")
+
+[node name="Base" type="Sprite2D" parent="."]
+use_parent_material = true
+texture = ExtResource("1_hdipi")
+
+[node name="WeaponComponent" parent="." instance=ExtResource("2_4qxm1")]
+cool_down = 0.8
+bullet_scene = ExtResource("3_qiqc4")
+
+[node name="Gun" parent="WeaponComponent" index="0"]
+texture = ExtResource("4_6j2gk")
+
+[node name="HurtBoxComponent" parent="." instance=ExtResource("6_jreye")]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent"]
+shape = SubResource("RectangleShape2D_6n2ls")
+
+[node name="HealthComponent" parent="." instance=ExtResource("7_wpsuj")]
+max_health = 4.0
+
+[node name="DetectComponent" parent="." instance=ExtResource("8_6qhvq")]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectComponent"]
+shape = SubResource("CircleShape2D_pny7j")
+
+[node name="TrailCompoment" parent="." instance=ExtResource("11_c7jup")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3edvn")
+}
+
+[editable path="WeaponComponent"]

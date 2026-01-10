@@ -1,0 +1,9 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1751245802
+icon.svg::CompressedTexture2D::5313548339722186264::1750123606::1750123615::1::::<><>::
+tool.gd::GDScript::-1::1750123719::0::1::::<>Sprite2D<>::
+tool.tscn::PackedScene::337706108305664011::1750170327::0::1::::<><>::res://tool.gd<>uid://chx6mn0ruy0cq::::res://icon.svg
+::res://addons/::1750169622
+::res://addons/myplugin/::1750170327
+my_plugin.gd::GDScript::-1::1750170327::0::1::::<>EditorPlugin<>::
+plugin.cfg::TextFile::-1::1750124521::0::1::::<><>::

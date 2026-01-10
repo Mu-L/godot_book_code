@@ -1,0 +1,17 @@
+res://Scenes/manager/enemy_manager.tscn
+res://assets/tileset/map.tres
+res://Scenes/UI/panel.tres
+res://Scenes/UI/font35.tres
+res://Scenes/Enemy/flash.gdshader
+res://Scenes/manager/enemy_manager.gd
+res://Scenes/game/game.tscn
+res://Scenes/Player/player.tscn
+res://Scenes/Enemy/enemy_tank.tscn
+res://Scenes/Enemy/enemy_tower.tscn
+res://Scenes/game/map.tscn
+res://Scenes/Component/health_component.tscn
+res://Scenes/Component/weapon_component.tscn
+res://Scenes/Object/bullet_base.tscn
+res://Scenes/UI/hud.tscn
+res://Scenes/manager/pickup_manager.tscn
+res://Scenes/manager/vfx_manager.tscn

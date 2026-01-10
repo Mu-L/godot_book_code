@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjk3dg0620i6k"]
+
+[ext_resource type="Script" path="res://Scenes/Component/shadow_component.gd" id="1_b4fop"]
+[ext_resource type="Texture2D" uid="uid://gb3nrajq0my8" path="res://assets/tank/tankBody_bigRed_outline.png" id="2_r61xp"]
+
+[node name="ShadowComponent" type="Node2D"]
+top_level = true
+script = ExtResource("1_b4fop")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 0, 0.396078)
+position = Vector2(0, 10)
+rotation = -1.5708
+texture = ExtResource("2_r61xp")

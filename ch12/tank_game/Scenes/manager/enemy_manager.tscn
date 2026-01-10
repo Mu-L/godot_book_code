@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://p3b0t7qx3ydr"]
+
+[ext_resource type="Script" path="res://Scenes/manager/enemy_manager.gd" id="1_ow7gc"]
+
+[node name="EnemyManager" type="Node"]
+script = ExtResource("1_ow7gc")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://e2t78vjersmd"]
+
+[ext_resource type="Script" path="res://tool.gd" id="1_d4uaw"]
+[ext_resource type="Texture2D" uid="uid://chx6mn0ruy0cq" path="res://icon.svg" id="1_lhj2y"]
+
+[node name="Tool" type="Sprite2D"]
+rotation = 2540.62
+texture = ExtResource("1_lhj2y")
+script = ExtResource("1_d4uaw")

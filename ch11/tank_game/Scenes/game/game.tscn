@@ -1,0 +1,135 @@
+[gd_scene load_steps=15 format=3 uid="uid://dq74u7xokhaw1"]
+
+[ext_resource type="PackedScene" uid="uid://c2av4ps8qp4ev" path="res://Scenes/game/map.tscn" id="1_ib0ap"]
+[ext_resource type="PackedScene" uid="uid://bwk5b6hf5n83w" path="res://Scenes/Enemy/enemy_mis_vehicle.tscn" id="3_8qg8i"]
+[ext_resource type="PackedScene" uid="uid://coagmfmoo0dyg" path="res://Scenes/Enemy/enemy_tank.tscn" id="3_gajjs"]
+[ext_resource type="PackedScene" uid="uid://cjx6mb7o8ct0u" path="res://Scenes/manager/vfx_manager.tscn" id="4_v75dy"]
+[ext_resource type="PackedScene" uid="uid://dytfkbyld0eye" path="res://Scenes/UI/hud.tscn" id="5_tggtv"]
+[ext_resource type="PackedScene" uid="uid://bn2pi1eq1mvyp" path="res://Scenes/Player/player.tscn" id="6_h1u1o"]
+
+[sub_resource type="Shader" id="Shader_jpf56"]
+code = "shader_type canvas_item;
+
+uniform bool active;
+uniform vec3 flash_color : source_color = vec3(1.0);
+
+
+void fragment(){
+	vec4 t = texture(TEXTURE, UV);
+	if (active == true) {
+		COLOR = vec4(flash_color, t.a);
+	}
+	
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x1s0m"]
+resource_local_to_scene = true
+shader = SubResource("Shader_jpf56")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v73d5"]
+resource_local_to_scene = true
+shader = SubResource("Shader_jpf56")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Shader" id="Shader_81u7w"]
+code = "shader_type canvas_item;
+
+uniform bool active;
+uniform vec3 flash_color : source_color = vec3(1.0);
+
+
+void fragment(){
+	vec4 t = texture(TEXTURE, UV);
+	if (active == true) {
+		COLOR = vec4(flash_color, t.a);
+	}
+	
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xoely"]
+resource_local_to_scene = true
+shader = SubResource("Shader_81u7w")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_84i6d"]
+resource_local_to_scene = true
+shader = SubResource("Shader_81u7w")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Shader" id="Shader_kc1t1"]
+code = "shader_type canvas_item;
+
+uniform bool active;
+uniform vec3 flash_color : source_color = vec3(1.0);
+
+
+void fragment(){
+	vec4 t = texture(TEXTURE, UV);
+	if (active == true) {
+		COLOR = vec4(flash_color, t.a);
+	}
+	
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lmlwl"]
+resource_local_to_scene = true
+shader = SubResource("Shader_kc1t1")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[node name="game" type="Node2D"]
+metadata/_edit_horizontal_guides_ = [-127.0, 1467.0]
+metadata/_edit_vertical_guides_ = [-130.0, 2884.0]
+
+[node name="Map" parent="." instance=ExtResource("1_ib0ap")]
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="EnemyMisVehicle" parent="Enemies" node_paths=PackedStringArray("points") instance=ExtResource("3_8qg8i")]
+material = SubResource("ShaderMaterial_x1s0m")
+position = Vector2(698, 157)
+points = NodePath("../../Points")
+
+[node name="EnemyMisVehicle2" parent="Enemies" node_paths=PackedStringArray("points") instance=ExtResource("3_8qg8i")]
+material = SubResource("ShaderMaterial_v73d5")
+position = Vector2(410, 414)
+points = NodePath("../../Points")
+
+[node name="EnemyTank" parent="Enemies" node_paths=PackedStringArray("points") instance=ExtResource("3_gajjs")]
+material = SubResource("ShaderMaterial_xoely")
+position = Vector2(474, 161)
+points = NodePath("../../Points")
+
+[node name="EnemyTank2" parent="Enemies" node_paths=PackedStringArray("points") instance=ExtResource("3_gajjs")]
+material = SubResource("ShaderMaterial_84i6d")
+position = Vector2(934, 157)
+points = NodePath("../../Points")
+
+[node name="VFXManager" parent="." instance=ExtResource("4_v75dy")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("5_tggtv")]
+
+[node name="Points" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="Points"]
+position = Vector2(418, 155)
+
+[node name="Marker2D2" type="Marker2D" parent="Points"]
+position = Vector2(1309, 351)
+
+[node name="Marker2D3" type="Marker2D" parent="Points"]
+position = Vector2(609, 610)
+
+[node name="Marker2D4" type="Marker2D" parent="Points"]
+position = Vector2(1315, 927)
+
+[node name="Player" parent="." instance=ExtResource("6_h1u1o")]
+material = SubResource("ShaderMaterial_lmlwl")
+position = Vector2(1761, 496)

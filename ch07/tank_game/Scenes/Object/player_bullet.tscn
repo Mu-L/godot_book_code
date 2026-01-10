@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://qm3v7karsgj8"]
+
+[ext_resource type="PackedScene" uid="uid://fhp86u1t55xj" path="res://Scenes/Object/bullet_base.tscn" id="1_3mhf7"]
+
+[node name="PlayerBullet" instance=ExtResource("1_3mhf7")]

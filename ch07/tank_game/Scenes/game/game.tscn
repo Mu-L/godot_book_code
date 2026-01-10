@@ -1,0 +1,188 @@
+[gd_scene load_steps=23 format=3 uid="uid://df487ug0y3k31"]
+
+[ext_resource type="PackedScene" uid="uid://b3fygs0ernbdp" path="res://Scenes/game/map.tscn" id="1_04qsy"]
+[ext_resource type="PackedScene" uid="uid://c1y3g6ty64d4g" path="res://Scenes/Player/player.tscn" id="2_68di3"]
+[ext_resource type="PackedScene" uid="uid://12vek3niyq0o" path="res://Scenes/manager/vfx_manager.tscn" id="3_knynk"]
+[ext_resource type="PackedScene" uid="uid://c0ymxelsqw38h" path="res://Scenes/Enemy/enemy_tower.tscn" id="5_ynvwr"]
+[ext_resource type="PackedScene" uid="uid://p3b0t7qx3ydr" path="res://Scenes/manager/enemy_manager.tscn" id="6_1svq3"]
+[ext_resource type="PackedScene" uid="uid://divch0op1c52" path="res://Scenes/manager/pickup_manager.tscn" id="7_ppkrq"]
+[ext_resource type="PackedScene" uid="uid://dfprwe34k50u6" path="res://Scenes/UI/hud.tscn" id="8_tf27r"]
+
+[sub_resource type="Shader" id="Shader_81u7w"]
+code = "shader_type canvas_item;
+
+uniform bool active;
+uniform vec3 flash_color : source_color = vec3(1.0);
+
+
+void fragment(){
+	vec4 t = texture(TEXTURE, UV);
+	if (active == true) {
+		COLOR = vec4(flash_color, t.a);
+	}
+	
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4bis4"]
+resource_local_to_scene = true
+shader = SubResource("Shader_81u7w")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Shader" id="Shader_64tgk"]
+code = "shader_type canvas_item;
+
+uniform bool active;
+uniform vec3 flash_color : source_color = vec3(1.0);
+
+
+void fragment(){
+	vec4 t = texture(TEXTURE, UV);
+	if (active == true) {
+		COLOR = vec4(flash_color, t.a);
+	}
+	
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hm0ce"]
+resource_local_to_scene = true
+shader = SubResource("Shader_64tgk")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w284h"]
+resource_local_to_scene = true
+shader = SubResource("Shader_64tgk")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xle4n"]
+resource_local_to_scene = true
+shader = SubResource("Shader_64tgk")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3on3d"]
+resource_local_to_scene = true
+shader = SubResource("Shader_64tgk")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bntul"]
+resource_local_to_scene = true
+shader = SubResource("Shader_64tgk")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_snbj4"]
+resource_local_to_scene = true
+shader = SubResource("Shader_64tgk")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o8kgk"]
+resource_local_to_scene = true
+shader = SubResource("Shader_64tgk")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Curve2D" id="Curve2D_d2fgi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -171, 285, 0, 0, 0, 0, 388, 283, 0, 0, 0, 0, 417, 306, 0, 0, 0, 0, 418, 589, 0, 0, 0, 0, 449, 608, 0, 0, 0, 0, 1024, 606, 0, 0, 0, 0, 1055, 580, 0, 0, 0, 0, 1055, 371, 0, 0, 0, 0, 1076, 348, 0, 0, 0, 0, 1727, 351, 0, 0, 0, 0, 1762, 336, 0, 0, 0, 0, 1758, 238, 0, 0, 0, 0, 1786.7, 220.328, 0, 0, 0, 0, 2368, 224, 0, 0, 0, 0, 2400, 205, 0, 0, 0, 0, 2395, -159)
+}
+point_count = 16
+
+[sub_resource type="Curve2D" id="Curve2D_wgp5y"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -138, 286, 0, 0, 0, 0, 381, 286, 0, 0, 0, 0, 414, 311, 0, 0, 0, 0, 418, 591, 0, 0, 0, 0, 447, 610, 0, 0, 0, 0, 580, 607, 0, 0, 0, 0, 609, 626, 0, 0, 0, 0, 605, 788, 0, 0, 0, 0, 545, 810, 0, 0, 0, 0, 542, 1156, 0, 0, 0, 0, 571, 1181, 0, 0, 0, 0, 1349, 1188, 0, 0, 0, 0, 1376, 1159, 0, 0, 0, 0, 1374, 942, 0, 0, 0, 0, 1397, 924, 0, 0, 0, 0, 1729, 927, 0, 0, 0, 0, 1757, 909, 0, 0, 0, 0, 1760, 373, 0, 0, 0, 0, 1731, 349, 0, 0, 0, 0, 1085, 352, 0, 0, 0, 0, 1057, 329, 0, 0, 0, 0, 1055, 182, 0, 0, 0, 0, 1027, 156, 0, 0, 0, 0, 440, 160, 0, 0, 0, 0, 415, 136, 0, 0, 0, 0, 416, -157)
+}
+point_count = 26
+
+[sub_resource type="Curve2D" id="Curve2D_jd8ni"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 406, -177, 0, 0, 0, 0, 416, 143, 0, 0, 0, 0, 436, 160, 0, 0, 0, 0, 1026, 158, 0, 0, 0, 0, 1056, 184, 0, 0, 0, 0, 1057, 332, 0, 0, 0, 0, 1079, 352, 0, 0, 0, 0, 1288, 351, 0, 0, 0, 0, 1308, 377, 0, 0, 0, 0, 1312, 913, 0, 0, 0, 0, 1340, 928, 0, 0, 0, 0, 1738, 927, 0, 0, 0, 0, 1757, 905, 0, 0, 0, 0, 1757, 251, 0, 0, 0, 0, 1779, 222, 0, 0, 0, 0, 2384, 221, 0, 0, 0, 0, 2411, 282, 0, 0, 0, 0, 2457, 297, 0, 0, 0, 0, 2465, 460, 0, 0, 0, 0, 2490, 479, 0, 0, 0, 0, 2886, 479)
+}
+point_count = 21
+
+[sub_resource type="Curve2D" id="Curve2D_tv7am"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -144, 287, 0, 0, 0, 0, 395, 286, 0, 0, 0, 0, 417, 310, 0, 0, 0, 0, 418, 592, 0, 0, 0, 0, 441, 608, 0, 0, 0, 0, 906, 605, 0, 0, 0, 0, 929, 627, 0, 0, 0, 0, 930, 908, 0, 0, 0, 0, 956, 929, 0, 0, 0, 0, 1289, 932, 0, 0, 0, 0, 1313, 916, 0, 0, 0, 0, 1310, 371, 0, 0, 0, 0, 1332, 350, 0, 0, 0, 0, 1741, 353, 0, 0, 0, 0, 1759, 330, 0, 0, 0, 0, 1760, 243, 0, 0, 0, 0, 1782, 222, 0, 0, 0, 0, 2382, 225, 0, 0, 0, 0, 2402, 203, 0, 0, 0, 0, 2398, -159)
+}
+point_count = 20
+
+[sub_resource type="Curve2D" id="Curve2D_ilmh7"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -145, 287, 0, 0, 0, 0, 389, 289, 0, 0, 0, 0, 413, 319, 0, 0, 0, 0, 416, 592, 0, 0, 0, 0, 442, 612, 0, 0, 0, 0, 585, 606, 0, 0, 0, 0, 607, 633, 0, 0, 0, 0, 602, 787, 0, 0, 0, 0, 545, 815, 0, 0, 0, 0, 542, 1160, 0, 0, 0, 0, 570, 1184, 0, 0, 0, 0, 2236, 1186, 0, 0, 0, 0, 2270, 1160, 0, 0, 0, 0, 2272, 1010, 0, 0, 0, 0, 2326, 986, 0, 0, 0, 0, 2332, 863, 0, 0, 0, 0, 2031, 863, 0, 0, 0, 0, 2006, 807, 0, 0, 0, 0, 1764, 799, 0, 0, 0, 0, 1760, 242, 0, 0, 0, 0, 1787, 221, 0, 0, 0, 0, 2366, 220, 0, 0, 0, 0, 2397, 197, 0, 0, 0, 0, 2393, -146)
+}
+point_count = 24
+
+[node name="Game" type="Node2D"]
+metadata/_edit_horizontal_guides_ = [-127.0, 1467.0]
+metadata/_edit_vertical_guides_ = [-130.0, 2884.0]
+
+[node name="VFXManager" parent="." instance=ExtResource("3_knynk")]
+
+[node name="EnemyManager" parent="." node_paths=PackedStringArray("path_holder", "enemies_holder") instance=ExtResource("6_1svq3")]
+path_holder = NodePath("../Path")
+enemies_holder = NodePath("../Enemies")
+
+[node name="PickupManager" parent="." instance=ExtResource("7_ppkrq")]
+
+[node name="Map" parent="." instance=ExtResource("1_04qsy")]
+
+[node name="Player" parent="." instance=ExtResource("2_68di3")]
+z_index = 1
+material = SubResource("ShaderMaterial_4bis4")
+position = Vector2(2355, 435)
+rotation = -3.14159
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="EnemyTower" parent="Enemies" instance=ExtResource("5_ynvwr")]
+material = SubResource("ShaderMaterial_hm0ce")
+position = Vector2(973, 237)
+
+[node name="EnemyTower7" parent="Enemies" instance=ExtResource("5_ynvwr")]
+material = SubResource("ShaderMaterial_w284h")
+position = Vector2(1921, 901)
+
+[node name="EnemyTower3" parent="Enemies" instance=ExtResource("5_ynvwr")]
+material = SubResource("ShaderMaterial_xle4n")
+position = Vector2(508, 516)
+
+[node name="EnemyTower2" parent="Enemies" instance=ExtResource("5_ynvwr")]
+material = SubResource("ShaderMaterial_3on3d")
+position = Vector2(957, 526)
+
+[node name="EnemyTower5" parent="Enemies" instance=ExtResource("5_ynvwr")]
+material = SubResource("ShaderMaterial_bntul")
+position = Vector2(1668, 566)
+
+[node name="EnemyTower6" parent="Enemies" instance=ExtResource("5_ynvwr")]
+material = SubResource("ShaderMaterial_snbj4")
+position = Vector2(1956, 121)
+
+[node name="EnemyTower4" parent="Enemies" instance=ExtResource("5_ynvwr")]
+material = SubResource("ShaderMaterial_o8kgk")
+position = Vector2(502, 249)
+
+[node name="Path" type="Node2D" parent="."]
+
+[node name="Path2D" type="Path2D" parent="Path"]
+curve = SubResource("Curve2D_d2fgi")
+
+[node name="Path2D2" type="Path2D" parent="Path"]
+curve = SubResource("Curve2D_wgp5y")
+
+[node name="Path2D3" type="Path2D" parent="Path"]
+curve = SubResource("Curve2D_jd8ni")
+
+[node name="Path2D4" type="Path2D" parent="Path"]
+curve = SubResource("Curve2D_tv7am")
+
+[node name="Path2D5" type="Path2D" parent="Path"]
+curve = SubResource("Curve2D_ilmh7")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("8_tf27r")]

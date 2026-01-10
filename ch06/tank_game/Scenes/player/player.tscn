@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://bsr5svi4nu2n6"]
+
+[ext_resource type="Script" path="res://Scenes/player/player.gd" id="1_swg4d"]
+[ext_resource type="Texture2D" uid="uid://gb3nrajq0my8" path="res://assets/tank/tankBody_bigRed_outline.png" id="2_0f2k1"]
+[ext_resource type="PackedScene" uid="uid://o71bt3jobi8e" path="res://Scenes/player_bullet/player_bullet.tscn" id="2_imjw1"]
+[ext_resource type="Texture2D" uid="uid://beslj6tblldm3" path="res://assets/tank/specialBarrel3_outline.png" id="3_l4jx7"]
+[ext_resource type="AudioStream" uid="uid://cjyy2efgnh81n" path="res://assets/sound/shoot.wav" id="5_xysnh"]
+[ext_resource type="AudioStream" uid="uid://dcxf8faakhtmq" path="res://assets/sound/engine.ogg" id="6_doo34"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_taqho"]
+size = Vector2(54, 46)
+
+[node name="Player" type="Area2D" groups=["Player"]]
+script = ExtResource("1_swg4d")
+bullet_scene = ExtResource("2_imjw1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_taqho")
+
+[node name="Base" type="Sprite2D" parent="."]
+texture = ExtResource("2_0f2k1")
+
+[node name="Gun" type="Sprite2D" parent="."]
+texture = ExtResource("3_l4jx7")
+offset = Vector2(8, 0)
+
+[node name="Marker2D" type="Marker2D" parent="Gun"]
+position = Vector2(32, 0)
+
+[node name="ShootSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_xysnh")
+volume_db = -5.0
+
+[node name="EngineSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_doo34")
+volume_db = -10.0
+autoplay = true

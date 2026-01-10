@@ -1,0 +1,145 @@
+[gd_scene load_steps=8 format=3 uid="uid://dfprwe34k50u6"]
+
+[ext_resource type="Script" path="res://Scenes/UI/hud.gd" id="1_scyw5"]
+[ext_resource type="FontFile" uid="uid://dlqiino7nti1b" path="res://assets/font/Rockboxcond12.ttf" id="2_8f8wq"]
+[ext_resource type="StyleBox" uid="uid://dolf5b3smlko6" path="res://Scenes/UI/panel.tres" id="2_873sh"]
+[ext_resource type="LabelSettings" uid="uid://hy5nvmoil6ww" path="res://Scenes/UI/font35.tres" id="3_e414i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tbbld"]
+bg_color = Color(0.506973, 0.621447, 0.718393, 1)
+border_width_left = 3
+border_width_top = 8
+border_width_right = 6
+border_width_bottom = 3
+border_color = Color(0.26607, 0.355968, 0.431198, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4jc5n"]
+bg_color = Color(0.791188, 0.0222957, 0.0216878, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 12
+border_color = Color(0.332012, 0.00300747, 0.00299258, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 10
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_isili"]
+font = ExtResource("2_8f8wq")
+font_size = 60
+outline_size = 7
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 7
+shadow_color = Color(0, 0, 0, 0.6)
+shadow_offset = Vector2(2, 2)
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_scyw5")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_styles/panel = ExtResource("2_873sh")
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Killed: 0"
+label_settings = ExtResource("3_e414i")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(450, 50)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_styles/panel = ExtResource("2_873sh")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/PanelContainer2/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Health"
+label_settings = ExtResource("3_e414i")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/HBoxContainer/PanelContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(300, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_tbbld")
+theme_override_styles/fill = SubResource("StyleBoxFlat_4jc5n")
+max_value = 1.0
+step = 0.1
+value = 0.5
+show_percentage = false
+
+[node name="PanelContainer3" type="PanelContainer" parent="MarginContainer"]
+visible = false
+custom_minimum_size = Vector2(400, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("2_873sh")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer3/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 20
+text = "You Win!"
+label_settings = SubResource("LabelSettings_isili")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="MarginContainer/PanelContainer3/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_8f8wq")
+theme_override_font_sizes/font_size = 30
+text = "Continue"
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true

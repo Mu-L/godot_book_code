@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://dibioqa2hamwt"]
+
+[ext_resource type="Script" path="res://main/main.gd" id="1_viwnl"]
+[ext_resource type="PackedScene" uid="uid://bty1oa6tr4a5x" path="res://bird/bird.tscn" id="2_bdbhv"]
+[ext_resource type="PackedScene" uid="uid://cy666mw3plkwk" path="res://BG/sky.tscn" id="4_8ohwg"]
+[ext_resource type="PackedScene" uid="uid://hlvcj53weh8c" path="res://hud/hud.tscn" id="4_fwy1m"]
+[ext_resource type="PackedScene" uid="uid://bxtbk16xojrsc" path="res://BG/ground.tscn" id="5_vnalr"]
+[ext_resource type="AudioStream" uid="uid://c6wsxdxr0tgil" path="res://assets/BGMUSIC.mp3" id="6_idl4c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p72r8"]
+size = Vector2(618, 12)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_viwnl")
+
+[node name="Sky" parent="." instance=ExtResource("4_8ohwg")]
+
+[node name="Ground" parent="." instance=ExtResource("5_vnalr")]
+layer = 1
+
+[node name="HUD" parent="." instance=ExtResource("4_fwy1m")]
+
+[node name="PipesGroup" type="Node2D" parent="."]
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(600, 350)
+
+[node name="Bird" parent="." instance=ExtResource("2_bdbhv")]
+position = Vector2(160, 300)
+
+[node name="Ceil" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ceil"]
+position = Vector2(299, -4)
+shape = SubResource("RectangleShape2D_p72r8")
+
+[node name="Floor" type="Area2D" parent="."]
+position = Vector2(0, 710)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+position = Vector2(299, -4)
+shape = SubResource("RectangleShape2D_p72r8")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_idl4c")
+volume_db = -10.0
+autoplay = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

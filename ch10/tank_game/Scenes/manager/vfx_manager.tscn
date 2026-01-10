@@ -1,0 +1,33 @@
+[gd_scene load_steps=11 format=3 uid="uid://12vek3niyq0o"]
+
+[ext_resource type="Script" path="res://Scenes/manager/vfx_manager.gd" id="1_81meb"]
+[ext_resource type="PackedScene" uid="uid://bhcnwq176odav" path="res://Scenes/Object/exp_anim.tscn" id="2_1gbix"]
+[ext_resource type="AudioStream" uid="uid://e6b1qft8ejr0" path="res://assets/sound/Explosion.WAV" id="2_ktyp1"]
+[ext_resource type="AudioStream" uid="uid://cqxm2wylo8lj3" path="res://assets/sound/impactMining_000.ogg" id="3_fi8gq"]
+[ext_resource type="PackedScene" uid="uid://by2sguirbuvs8" path="res://Scenes/Object/exp_particle.tscn" id="3_xx1nt"]
+[ext_resource type="AudioStream" uid="uid://crusv5u42alr2" path="res://assets/sound/impactMining_001.ogg" id="4_2ujdw"]
+[ext_resource type="AudioStream" uid="uid://fwmvf532wply" path="res://assets/sound/impactMining_002.ogg" id="5_icns2"]
+[ext_resource type="AudioStream" uid="uid://dx3stiguhpaty" path="res://assets/sound/impactMining_003.ogg" id="6_mf347"]
+[ext_resource type="AudioStream" uid="uid://rf04v5rx4u38" path="res://assets/sound/impactMining_004.ogg" id="7_8cddn"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_4nvel"]
+streams_count = 5
+stream_0/stream = ExtResource("3_fi8gq")
+stream_1/stream = ExtResource("4_2ujdw")
+stream_2/stream = ExtResource("5_icns2")
+stream_3/stream = ExtResource("6_mf347")
+stream_4/stream = ExtResource("7_8cddn")
+
+[node name="VFXManager" type="Node"]
+script = ExtResource("1_81meb")
+exp_anim_scene = ExtResource("2_1gbix")
+exp_particle_scene = ExtResource("3_xx1nt")
+
+[node name="ExpSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_ktyp1")
+volume_db = -5.0
+max_distance = 1200.0
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_4nvel")
+max_distance = 1200.0

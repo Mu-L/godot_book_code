@@ -1,0 +1,7 @@
+res://Scenes/Enemy/enemy_tank_sfsm.tscn
+res://assets/tileset/map.tres
+res://Scenes/Enemy/enemy_tank_sfsm.gd
+res://Scenes/game/game.tscn
+res://Scenes/Player/player.tscn
+res://Scenes/Enemy/enemy_tank.tscn
+res://Scenes/Enemy/state_machine.tscn

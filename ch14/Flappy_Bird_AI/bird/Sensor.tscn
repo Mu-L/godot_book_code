@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjipp3bn8jhp5"]
+
+[ext_resource type="Script" path="res://bird/sensor.gd" id="1_4k08y"]
+
+[node name="Sensor" type="RayCast2D"]
+position = Vector2(0, -20)
+target_position = Vector2(300, 0)
+collide_with_areas = true
+collide_with_bodies = false
+script = ExtResource("1_4k08y")
