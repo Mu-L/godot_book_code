@@ -35,3 +35,6 @@ func on_time_out():
 
 func upgrade(value):
 	cool_down = max(min_cool_down,cool_down-value )
+
+func reset():
+	rotation = 0

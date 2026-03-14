@@ -23,6 +23,8 @@ func physics_update(delta: float) -> void:
 	else:
 		transitioned.emit(self,"EnemyWander")
 
+func exit():
+	weapon_component.reset()
 	
 func set_nav_layer():
 	enemy.navigation_agent_2d.set_navigation_layer_value(1,true)
